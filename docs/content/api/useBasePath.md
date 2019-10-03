@@ -8,13 +8,13 @@ Get the `basePath` set by a parent `useRoutes` component (empty string if none)
 
 ## API
 
-{{< highlight typescript >}}
+```typescript
 export function useBasePath(): string
-{{< /highlight >}}
+```
 
 ## Basic
 
-{{< highlight jsx >}}
+```jsx
 import { useRoutes, useBasePath } from 'raviger'
 
 function Home () {
@@ -31,4 +31,4 @@ export default function App() {
   return useRoutes(routes, { basePath: 'app' })
   )
 }
-{{< /highlight >}}
+```

@@ -19,7 +19,7 @@ npm i raviger
 
 This basic setup shows how to display an `<App>` component that renders a route based on the current path, with links to different routes.
 
-{{< highlight jsx >}}
+```jsx
 import { useRoutes, Link, useQueryParams } from 'raviger'
 import { Home, About, Users } from './Pages.js'
 
@@ -43,4 +43,4 @@ export default function App() {
     </div>
   )
 }
-{{< /highlight>}}
+```

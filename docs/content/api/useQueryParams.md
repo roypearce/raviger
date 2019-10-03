@@ -9,18 +9,18 @@ A hook for reading and updating the query string parameters on the page. Updates
 ## API
 
 
-{{< highlight typescript >}}
+```typescript
 export function useQueryParams(
   parseFn?: (query: string) => QueryParam,
   serializeFn?: (query: QueryParam) => string
 ): [QueryParam, (query: QueryParam, replace?: boolean) => void]
-{{< /highlight >}}
+```
 
 ## Basic
 
 The default parse and serialize functions utilized the browser built-in `URLSearchParams`. You can provide custom parse and serialize functions to control this behavior.
 
-{{< highlight jsx>}}
+```jsx
 import { useQueryParams } from 'raviger'
 
 function UserList ({ users }) {
@@ -38,13 +38,13 @@ function UserList ({ users }) {
     </div>
   )
 }
-{{< /highlight>}}
+```
 
 ## Updating the Query with merge
 
 The second return value from `useQueryParams` is a function that updates the query string. By default it overwrites the entire query, but it can merge with the query object by setting the second param to `true`.
 
-{{< highlight jsx>}}
+```jsx
 import { useQueryParams } from 'raviger'
 
 function UserList ({ users }) {
@@ -53,17 +53,17 @@ function UserList ({ users }) {
     <input value={startsWith || ''} onChange={(e) => setQuery({ startsWith: e.target.value}, true )} />
   )
 }
-{{< /highlight>}}
+```
 
 ## Custom serialization and parsing
 
 Its possible to override either the querystring *serializer*, *deserializer*, or both, by providing functions to `useQueryParams`. Use a custom wrapper hook to reuse throughout your application.
 
-{{< highlight javascript>}}
+```javascript
 import { useQueryParams } from 'raviger'
 import qs from 'qs'
 
 export function useCustomQuery() {
   return useQueryParams(qs.parse, qs.stringify)
 }
-{{< /highlight>}}
+```

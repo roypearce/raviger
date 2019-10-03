@@ -8,6 +8,6 @@ Get the current path of the page.
 
 ## API
 
-{{< highlight typescript >}}
+```typescript
 export function usePath(basePath?: string): string
-{{< /highlight >}}
+```
