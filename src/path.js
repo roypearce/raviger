@@ -80,10 +80,12 @@ export function useLocationChange(
   })
 
   const onPopState = useCallback(() => {
-    // No predicate defaults true
-    if (isActive !== undefined && !isPredicateActive(isActive)) return
-    // console.log('loc', basePath || 'none', getFormattedPath(basePath))
-    setRef.current(getFormattedPath(basePath))
+    setTimeout(() => {
+      // No predicate defaults true
+      if (isActive !== undefined && !isPredicateActive(isActive)) return
+      // console.log('loc', basePath || 'none', getFormattedPath(basePath))
+      setRef.current(getFormattedPath(basePath))
+    }, 0)
   }, [isActive, basePath])
 
   useLayoutEffect(() => {

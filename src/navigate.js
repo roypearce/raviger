@@ -4,6 +4,7 @@ import { useBasePath } from './path.js'
 
 const defaultPrompt = 'Are you sure you want to leave this page?'
 const interceptors = new Set()
+let lastPath = ''
 
 export function navigate(url, replaceOrQuery, replace, state = null) {
   if (typeof url !== 'string') {
@@ -22,12 +23,24 @@ export function navigate(url, replaceOrQuery, replace, state = null) {
   } else if (replace === undefined && replaceOrQuery === undefined) {
     replace = false
   }
+  lastPath = url
   window.history[`${replace ? 'replace' : 'push'}State`](state, null, url)
   dispatchEvent(new PopStateEvent('popstate', null))
 }
 
 export function useNavigationPrompt(predicate = true, prompt = defaultPrompt) {
   if (isNode) return
+
+  useLayoutEffect(() => {
+    const onPopStateNavigation = () => {
+      if (shouldCancelNavigation()) {
+        window.history.pushState(null, null, lastPath)
+      }
+    }
+    window.addEventListener('popstate', onPopStateNavigation)
+    return () => window.removeEventListener('popstate', onPopStateNavigation)
+  }, [])
+
   useLayoutEffect(() => {
     const handler = e => {
       if (predicate) {
